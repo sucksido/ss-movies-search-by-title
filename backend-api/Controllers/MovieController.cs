@@ -1,13 +1,8 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+
+using System.Text.Json;
+
 
 namespace backend_api.Controllers;
 
@@ -41,8 +36,6 @@ public class MovieController : ControllerBase
             var response = await _httpClient.GetStringAsync(apiUrl);
             using (JsonDocument document = JsonDocument.Parse(response))
             {
-                // Access JSON properties using document.RootElement
-                // Modify the result format as needed
                 return Ok(document.RootElement);
             }
         }
@@ -63,7 +56,7 @@ public class MovieController : ControllerBase
     public IActionResult SaveRecentSearch([FromBody] string searchQuery)
     {
         _recentSearches.Add(searchQuery);
-        _recentSearches = _recentSearches.TakeLast(5).ToList(); // Keep only the latest 5 searches
+        _recentSearches = _recentSearches.TakeLast(5).ToList();
         return Ok();
     }
 
@@ -78,8 +71,6 @@ public class MovieController : ControllerBase
             var response = await _httpClient.GetStringAsync(apiUrl);
              using (JsonDocument document = JsonDocument.Parse(response))
             {
-                // Access JSON properties using document.RootElement
-                // Modify the result format as needed
                 return Ok(document.RootElement);
             }
         }
